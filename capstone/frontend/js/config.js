@@ -7,6 +7,6 @@ window.APP_CONFIG = Object.freeze({
 
     API_BASE_URL: isLocal
         ? "http://127.0.0.1:8000"
-        : "https://NAMA-BACKEND.onrender.com",
+        : "https://capstone-0xfe.onrender.com",
 
 });
