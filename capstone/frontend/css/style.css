@@ -1,0 +1,76 @@
+body {
+    background-color: #f6f8fb;
+    color: #1f2937;
+    min-height: 100vh;
+}
+
+
+.navbar {
+    min-height: 70px;
+}
+
+
+.dashboard-card {
+    border: 1px solid #e9ecef;
+    border-radius: 16px;
+    box-shadow:
+        0 4px 18px rgba(0, 0, 0, 0.04);
+}
+
+
+.metric-label {
+    color: #6c757d;
+    font-size: 0.9rem;
+    margin-bottom: 8px;
+}
+
+
+.metric-value {
+    font-weight: 700;
+    margin-bottom: 0;
+}
+
+
+.progress {
+    height: 10px;
+    border-radius: 999px;
+}
+
+
+.progress-bar {
+    border-radius: 999px;
+}
+
+
+.learning-profile-card {
+    overflow: hidden;
+}
+
+
+.confidence-badge {
+    padding: 10px 14px;
+    border-radius: 999px;
+    font-weight: 500;
+}
+
+
+.description-text {
+    line-height: 1.8;
+    max-width: 900px;
+}
+
+
+@media (max-width: 576px) {
+
+    main.container {
+        padding-top: 2rem !important;
+    }
+
+    .metric-value {
+        font-size: 1.5rem;
+    }
+
+    #learningType {
+        font-size: 1.8rem;
+    }
+}

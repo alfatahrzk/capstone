@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Demo Student Setup</title>
+
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+    >
+
+    <link
+        rel="stylesheet"
+        href="css/style.css"
+    >
+</head>
+
+<body>
+
+<nav class="navbar bg-white border-bottom">
+    <div class="container">
+
+        <span class="navbar-brand fw-bold">
+            Demo Student Setup
+        </span>
+
+        <a
+            href="login.html"
+            class="btn btn-outline-primary btn-sm"
+        >
+            Student Login
+        </a>
+
+    </div>
+</nav>
+
+
+<main class="container py-5">
+
+    <div class="row justify-content-center">
+
+        <div class="col-lg-8">
+
+            <div class="mb-4">
+
+                <h2 class="fw-bold">
+                    Create Demo Student
+                </h2>
+
+                <p class="text-muted">
+                    Create a login account and configure
+                    learning activity data for the demo.
+                </p>
+
+            </div>
+
+
+            <div
+                id="successAlert"
+                class="alert alert-success d-none"
+            ></div>
+
+            <div
+                id="errorAlert"
+                class="alert alert-danger d-none"
+            ></div>
+
+
+            <div class="card dashboard-card">
+
+                <div class="card-body p-4">
+
+                    <form id="demoStudentForm">
+
+                        <h5 class="mb-3">
+                            Account
+                        </h5>
+
+
+                        <div class="row g-3">
+
+
+                            <div class="col-md-12">
+
+                                <label
+                                    class="form-label"
+                                >
+                                    Email
+                                </label>
+
+                                <input
+                                    id="email"
+                                    type="email"
+                                    class="form-control"
+                                    placeholder="student2@test.com"
+                                    required
+                                >
+
+                            </div>
+
+
+                            <div class="col-md-6">
+
+                                <label
+                                    class="form-label"
+                                >
+                                    Password
+                                </label>
+
+                                <input
+                                    id="password"
+                                    type="text"
+                                    class="form-control"
+                                    value="Student123!"
+                                    required
+                                >
+
+                            </div>
+
+
+                            <div class="col-md-6">
+
+                                <label
+                                    class="form-label"
+                                >
+                                    Demo Admin Key
+                                </label>
+
+                                <input
+                                    id="adminKey"
+                                    type="password"
+                                    class="form-control"
+                                    required
+                                >
+
+                            </div>
+
+                        </div>
+
+
+                        <hr class="my-4">
+
+
+                        <h5 class="mb-3">
+                            Learning Activity
+                        </h5>
+
+
+                        <div class="row g-3">
+
+                            <div class="col-md-6">
+
+                                <label
+                                    class="form-label"
+                                >
+                                    Time Spent on Course
+                                </label>
+
+                                <input
+                                    id="timeSpent"
+                                    type="number"
+                                    min="0"
+                                    max="100"
+                                    value="70"
+                                    class="form-control"
+                                    required
+                                >
+
+                                <div class="form-text">
+                                    Range: 0–100
+                                </div>
+
+                            </div>
+
+
+                            <div class="col-md-6">
+
+                                <label
+                                    class="form-label"
+                                >
+                                    Videos Watched
+                                </label>
+
+                                <input
+                                    id="videosWatched"
+                                    type="number"
+                                    min="0"
+                                    max="20"
+                                    value="12"
+                                    class="form-control"
+                                    required
+                                >
+
+                                <div class="form-text">
+                                    Range: 0–20
+                                </div>
+
+                            </div>
+
+
+                            <div class="col-md-6">
+
+                                <label
+                                    class="form-label"
+                                >
+                                    Quizzes Taken
+                                </label>
+
+                                <input
+                                    id="quizzesTaken"
+                                    type="number"
+                                    min="0"
+                                    max="10"
+                                    value="6"
+                                    class="form-control"
+                                    required
+                                >
+
+                                <div class="form-text">
+                                    Range: 0–10
+                                </div>
+
+                            </div>
+
+
+                            <div class="col-md-6">
+
+                                <label
+                                    class="form-label"
+                                >
+                                    Quiz Score
+                                </label>
+
+                                <input
+                                    id="quizScore"
+                                    type="number"
+                                    min="0"
+                                    max="100"
+                                    value="80"
+                                    class="form-control"
+                                    required
+                                >
+
+                                <div class="form-text">
+                                    Range: 0–100
+                                </div>
+
+                            </div>
+
+
+                            <div class="col-md-6">
+
+                                <label
+                                    class="form-label"
+                                >
+                                    Completion Rate
+                                </label>
+
+                                <input
+                                    id="completionRate"
+                                    type="number"
+                                    min="0"
+                                    max="100"
+                                    value="75"
+                                    class="form-control"
+                                    required
+                                >
+
+                                <div class="form-text">
+                                    Range: 0–100
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="d-grid mt-4">
+
+                            <button
+                                id="createButton"
+                                class="btn btn-primary"
+                                type="submit"
+                            >
+                                Create Demo Student
+                            </button>
+
+                        </div>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</main>
+
+
+<script src="js/config.js"></script>
+<script src="js/demo-admin.js"></script>
+
+</body>
+
+</html>
