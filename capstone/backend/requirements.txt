@@ -3,3 +3,8 @@ uvicorn[standard]
 supabase
 python-dotenv
 google-genai
+tensorflow
+scikit-learn
+joblib
+numpy
+pandas
