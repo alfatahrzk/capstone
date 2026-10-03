@@ -2,345 +2,498 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <title>Ontime - Learning Dashboard</title>
+  <!-- Tailwind CSS CDN with forms & container queries plugins -->
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <!-- Google Fonts: Plus Jakarta Sans for modern corporate look -->
+  <link href="https://fonts.googleapis.com" rel="preconnect" />
+  <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap"
+    rel="stylesheet" />
+  <!-- Tailwind Configuration for Ontime Brand Palette -->
+  <script data-purpose="tailwind-config">
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            ontime: {
+              teal: {
+                50: '#eef8f7',
+                100: '#d7efec',
+                200: '#b1e0db',
+                500: '#0ca694',
+                600: '#00877a',
+                700: '#007066',
+                800: '#025952',
+                900: '#074843',
+              },
+              mustard: {
+                50: '#fef9ec',
+                100: '#fcf0ce',
+                500: '#f5a623',
+                600: '#e08f12',
+              },
+              navy: {
+                800: '#142838',
+                900: '#0d1d29',
+              },
+              mintbg: '#f1f7f6',
+            }
+          },
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'system-ui', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+  <style data-purpose="custom-utilities">
+    /* Subtle custom card elevation and smooth micro-interactions */
+    .dashboard-card {
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
 
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
+    .dashboard-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 28px -6px rgba(0, 135, 122, 0.08), 0 4px 10px -2px rgba(0, 0, 0, 0.04);
+    }
 
-    <title>Learning Dashboard</title>
+    .custom-scrollbar::-webkit-scrollbar {
+      height: 4px;
+      width: 4px;
+    }
 
-    <link
-        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-        rel="stylesheet"
-    >
-
-    <link
-        rel="stylesheet"
-        href="css/style.css"
-    >
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+      background: #b1e0db;
+      border-radius: 9999px;
+    }
+  </style>
 </head>
 
-<body>
-
-<nav class="navbar navbar-expand-lg bg-white border-bottom">
-    <div class="container py-2">
-
-        <span class="navbar-brand fw-bold">
-            Learning Dashboard
-        </span>
-
-        <div class="d-flex align-items-center gap-3">
-
+<body
+  class="bg-ontime-mintbg text-slate-800 font-sans min-h-screen flex flex-col antialiased selection:bg-ontime-teal-100 selection:text-ontime-teal-800">
+  <!-- BEGIN: MainHeader -->
+  <header class="bg-white border-b border-ontime-teal-100/70 sticky top-0 z-30 shadow-sm" data-purpose="top-navigation">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-20">
+        <!-- Left: Brand Logo & Main Navigation -->
+        <div class="flex items-center space-x-8">
+          <!-- Ontime Logo inspired by login brand identity -->
+          <a aria-label="Ontime Home" class="flex items-center space-x-2.5 group" href="index.html">
             <span
-                id="userEmail"
-                class="text-muted small d-none d-md-inline"
-            >
-                -
+              class="inline-flex items-center justify-center w-8 h-8 rounded-full bg-ontime-teal-600 text-white shadow-sm ring-4 ring-ontime-teal-100/50 group-hover:scale-105 transition-transform">
+              <span class="w-3 h-3 rounded-full bg-white"></span>
             </span>
-
-            <button
-                class="btn btn-outline-danger btn-sm"
-                onclick="logout()"
-            >
-                Logout
-            </button>
-
+            <span class="text-2xl font-bold tracking-tight text-ontime-teal-800">Ontime<span
+                class="text-ontime-teal-600">.</span></span>
+          </a>
+          <!-- Navigation Links -->
+          <nav aria-label="Dashboard Navigation" class="hidden md:flex items-center space-x-1">
+            <a class="px-3.5 py-2 rounded-xl text-sm font-semibold bg-ontime-teal-50 text-ontime-teal-700 flex items-center space-x-1.5 transition-colors"
+              href="index.html">
+              <span>Dashboard</span>
+            </a>
+            <a class="px-3.5 py-2 rounded-xl text-sm font-medium text-slate-600 hover:text-ontime-teal-700 hover:bg-slate-50 transition-colors"
+              href="#">
+              <span>My Courses</span>
+            </a>
+            <a class="px-3.5 py-2 rounded-xl text-sm font-medium text-slate-600 hover:text-ontime-teal-700 hover:bg-slate-50 transition-colors"
+              href="#">
+              <span>Assignments</span>
+            </a>
+            <a class="px-3.5 py-2 rounded-xl text-sm font-medium text-slate-600 hover:text-ontime-teal-700 hover:bg-slate-50 transition-colors"
+              href="#">
+              <span>Quizzes</span>
+            </a>
+            <a class="px-3.5 py-2 rounded-xl text-sm font-medium text-slate-600 hover:text-ontime-teal-700 hover:bg-slate-50 transition-colors"
+              href="#">
+              <span>Certificates</span>
+            </a>
+          </nav>
         </div>
-
+        <!-- Right: Notifications, User Profile & Logout -->
+        <div class="flex items-center space-x-3 sm:space-x-5">
+          <!-- Notification Bell -->
+          <button aria-label="View notifications"
+            class="p-2 text-slate-400 hover:text-ontime-teal-700 hover:bg-ontime-teal-50 rounded-full transition-colors relative"
+            type="button">
+            <span class="sr-only">Notifications</span>
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+              <path
+                d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"
+                stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+            </svg>
+            <span
+              class="absolute top-1.5 right-1.5 w-2 h-2 bg-ontime-mustard-500 rounded-full ring-2 ring-white"></span>
+          </button>
+          <!-- Divider -->
+          <div class="h-6 w-px bg-slate-200 hidden sm:block"></div>
+          <!-- User Info pill & avatar -->
+          <div class="flex items-center space-x-3">
+            <div id="userAvatar"
+              class="w-9 h-9 rounded-full bg-ontime-teal-100 flex items-center justify-center text-ontime-teal-800 font-bold text-sm ring-2 ring-ontime-teal-50">
+              U
+            </div>
+            <div class="hidden lg:flex flex-col text-left">
+              <span class="text-xs font-semibold text-slate-400 tracking-wide uppercase">Learner</span>
+              <span id="userEmail" class="text-sm font-semibold text-slate-700 truncate max-w-[170px]">-</span>
+            </div>
+          </div>
+          <!-- Logout Button -->
+          <button onclick="logout()"
+            class="inline-flex items-center justify-center px-4 py-2 text-xs sm:text-sm font-semibold text-rose-600 bg-rose-50/70 border border-rose-200/80 rounded-xl hover:bg-rose-600 hover:text-white transition-all duration-200 shadow-sm"
+            type="button">
+            <svg class="w-4 h-4 mr-1.5 hidden sm:inline-block" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+              <path d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"
+                stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+            </svg>
+            <span>Logout</span>
+          </button>
+        </div>
+      </div>
     </div>
-</nav>
+  </header>
+  <!-- END: MainHeader -->
 
+  <!-- BEGIN: MainContent -->
+  <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-10 space-y-8"
+    data-purpose="dashboard-main-view">
 
-<main class="container py-5">
-
-    <!-- HEADER -->
-
-    <div class="mb-4">
-
-        <p class="text-primary fw-semibold mb-1">
-            Student Overview
+    <!-- BEGIN: HeroSection -->
+    <section class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6 pb-2"
+      data-purpose="student-overview-hero">
+      <div class="space-y-2">
+        <h1 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+          Your Learning Dashboard
+        </h1>
+        <p class="text-slate-600 text-sm sm:text-base max-w-2xl leading-relaxed">
+          Monitor your learning activity, module progression, and personalized learning style profile.
         </p>
+      </div>
+      <!-- Quick Action CTAs -->
+      <div class="flex flex-wrap items-center gap-3">
+        <button
+          class="inline-flex items-center justify-center px-5 py-2.5 bg-ontime-teal-600 hover:bg-ontime-teal-700 text-white text-sm font-semibold rounded-xl shadow-sm shadow-ontime-teal-600/30 transition-all duration-200 hover:shadow-md"
+          type="button">
+          <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+            <path d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"
+              stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+            <path d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" stroke-linecap="round" stroke-linejoin="round"
+              stroke-width="2">
+            </path>
+          </svg>
+          Continue Learning
+        </button>
+        <button
+          class="inline-flex items-center justify-center px-4 py-2.5 bg-white hover:bg-slate-50 text-slate-700 border border-slate-200 text-sm font-semibold rounded-xl transition-colors shadow-sm"
+          type="button">
+          Study Plan
+        </button>
+      </div>
+    </section>
+    <!-- END: HeroSection -->
 
-        <h2 class="fw-bold mb-1">
-            Your Learning Dashboard
-        </h2>
-
-        <p class="text-muted mb-0">
-            Monitor your learning activity and personalized learning profile.
-        </p>
-
+    <!-- ERROR ALERT -->
+    <div id="errorAlert"
+      class="hidden p-4 rounded-xl bg-rose-50 border border-rose-200 text-rose-700 text-sm font-medium">
     </div>
 
-
-    <!-- ERROR -->
-
-    <div
-        id="errorAlert"
-        class="alert alert-danger d-none"
-    >
+    <!-- LOADING STATE -->
+    <div id="loadingState"
+      class="bg-white p-8 rounded-2xl border border-slate-100 shadow-sm flex items-center justify-center space-x-3">
+      <div class="w-6 h-6 border-3 border-ontime-teal-600 border-t-transparent rounded-full animate-spin"></div>
+      <span class="text-slate-600 font-medium text-sm">Loading your learning profile...</span>
     </div>
 
+    <!-- DASHBOARD CONTENT CONTAINER -->
+    <div id="dashboardContent" class="hidden space-y-8">
 
-    <!-- LOADING -->
-
-    <div
-        id="loadingState"
-        class="card dashboard-card mb-4"
-    >
-        <div class="card-body p-4">
-
-            <div class="d-flex align-items-center gap-3">
-
-                <div
-                    class="spinner-border spinner-border-sm text-primary"
-                    role="status"
-                ></div>
-
-                <span>
-                    Loading your learning profile...
+      <!-- BEGIN: MetricCardsGrid -->
+      <section aria-label="Activity Metrics" data-purpose="metrics-summary">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+          <!-- Card 1: Completion Rate -->
+          <article
+            class="dashboard-card bg-white p-6 rounded-2xl border border-slate-100 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)] relative overflow-hidden flex flex-col justify-between">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-semibold text-slate-500 tracking-wide uppercase">Completion Rate</span>
+              <div class="w-10 h-10 rounded-xl bg-ontime-teal-50 text-ontime-teal-600 flex items-center justify-center">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+                  <path
+                    d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"
+                    stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+                </svg>
+              </div>
+            </div>
+            <div class="mt-4">
+              <div id="completionRate" class="text-3xl font-extrabold text-slate-900 tracking-tight">-</div>
+              <div class="mt-2 flex items-center text-xs text-slate-500">
+                <span class="inline-flex items-center text-ontime-teal-600 font-semibold mr-1.5">
+                  <svg class="w-3.5 h-3.5 mr-0.5" fill="currentColor" viewbox="0 0 20 20">
+                    <path clip-rule="evenodd"
+                      d="M5.293 9.707a1 1 0 010-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 01-1.414 1.414L11 7.414V15a1 1 0 11-2 0V7.414L6.707 9.707a1 1 0 01-1.414 0z"
+                      fill-rule="evenodd"></path>
+                  </svg>
+                  Course progress
                 </span>
-
+                <span>· Total completion</span>
+              </div>
             </div>
+            <!-- subtle bottom accent strip -->
+            <div class="absolute bottom-0 inset-x-0 h-1 bg-ontime-teal-500"></div>
+          </article>
 
+          <!-- Card 2: Quiz Score -->
+          <article
+            class="dashboard-card bg-white p-6 rounded-2xl border border-slate-100 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)] relative overflow-hidden flex flex-col justify-between">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-semibold text-slate-500 tracking-wide uppercase">Quiz Score</span>
+              <div
+                class="w-10 h-10 rounded-xl bg-ontime-mustard-50 text-ontime-mustard-600 flex items-center justify-center">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+                  <path
+                    d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"
+                    stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+                </svg>
+              </div>
+            </div>
+            <div class="mt-4">
+              <div id="quizScore" class="text-3xl font-extrabold text-slate-900 tracking-tight">-</div>
+              <div class="mt-2 flex items-center text-xs text-slate-500">
+                <span class="font-medium text-slate-700 mr-1">Points achieved</span>
+                <span>· Average score</span>
+              </div>
+            </div>
+            <div class="absolute bottom-0 inset-x-0 h-1 bg-ontime-mustard-500"></div>
+          </article>
+
+          <!-- Card 3: Videos Watched -->
+          <article
+            class="dashboard-card bg-white p-6 rounded-2xl border border-slate-100 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)] relative overflow-hidden flex flex-col justify-between">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-semibold text-slate-500 tracking-wide uppercase">Videos Watched</span>
+              <div class="w-10 h-10 rounded-xl bg-sky-50 text-sky-600 flex items-center justify-center">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+                  <path
+                    d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"
+                    stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+                </svg>
+              </div>
+            </div>
+            <div class="mt-4">
+              <div id="videosWatched" class="text-3xl font-extrabold text-slate-900 tracking-tight">-</div>
+              <div class="mt-2 flex items-center text-xs text-slate-500">
+                <span class="font-medium text-slate-700 mr-1">Video modules</span>
+                <span>completed</span>
+              </div>
+            </div>
+            <div class="absolute bottom-0 inset-x-0 h-1 bg-sky-500"></div>
+          </article>
+
+          <!-- Card 4: Quizzes Taken -->
+          <article
+            class="dashboard-card bg-white p-6 rounded-2xl border border-slate-100 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)] relative overflow-hidden flex flex-col justify-between">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-semibold text-slate-500 tracking-wide uppercase">Quizzes Taken</span>
+              <div class="w-10 h-10 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+                  <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" stroke-linecap="round" stroke-linejoin="round"
+                    stroke-width="2"></path>
+                </svg>
+              </div>
+            </div>
+            <div class="mt-4">
+              <div id="quizzesTaken" class="text-3xl font-extrabold text-slate-900 tracking-tight">-</div>
+              <div class="mt-2 flex items-center text-xs text-slate-500">
+                <span class="font-medium text-slate-700 mr-1">Evaluations</span>
+                <span>submitted</span>
+              </div>
+            </div>
+            <div class="absolute bottom-0 inset-x-0 h-1 bg-indigo-500"></div>
+          </article>
         </div>
+      </section>
+      <!-- END: MetricCardsGrid -->
+
+      <!-- BEGIN: CourseProgressSection -->
+      <section class="bg-white p-6 sm:p-7 rounded-2xl border border-slate-100 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)]"
+        data-purpose="course-overall-progress">
+        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-4 gap-2">
+          <div>
+            <div class="flex items-center space-x-2">
+              <h2 class="text-base sm:text-lg font-bold text-slate-900">Course Progress</h2>
+            </div>
+            <p class="text-xs sm:text-sm text-slate-500 mt-0.5">Foundations of Collaborative Team Performance &amp;
+              Leadership</p>
+          </div>
+          <div class="flex items-baseline space-x-1 sm:self-center">
+            <span id="progressText" class="text-2xl font-black text-ontime-teal-700">-</span>
+            <span class="text-xs font-semibold text-slate-400">Completed</span>
+          </div>
+        </div>
+        <!-- Progress Track & Thumb Indicator -->
+        <div aria-valuemax="100" aria-valuemin="0" aria-valuenow="1"
+          class="relative w-full bg-slate-100 h-3.5 rounded-full overflow-hidden p-0.5" role="progressbar">
+          <div id="progressBar"
+            class="bg-gradient-to-r from-ontime-teal-600 to-ontime-teal-500 h-full rounded-full transition-all duration-500 flex items-center justify-end pr-0.5 shadow-sm"
+            style="width: 0%">
+            <span class="w-2 h-2 rounded-full bg-white shadow-xs"></span>
+          </div>
+        </div>
+        <!-- Progress Milestones Footer -->
+        <div
+          class="mt-4 pt-4 border-t border-slate-100 flex flex-col sm:flex-row sm:items-center justify-between text-xs text-slate-500 gap-2">
+          <div class="flex items-center space-x-2">
+            <span class="inline-block w-2 h-2 rounded-full bg-ontime-mustard-500"></span>
+            <span>Current Milestone: <strong class="text-slate-700 font-semibold">Chapter 1 - Getting
+                Started</strong></span>
+          </div>
+          <a class="inline-flex items-center text-ontime-teal-700 font-semibold hover:text-ontime-teal-800 transition-colors"
+            href="#">
+            <span>Jump to next lesson</span>
+            <svg class="w-3.5 h-3.5 ml-1" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+              <path d="M9 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+            </svg>
+          </a>
+        </div>
+      </section>
+      <!-- END: CourseProgressSection -->
+
+      <!-- BEGIN: LearningProfileSection -->
+      <section class="grid grid-cols-1 lg:grid-cols-3 gap-6" data-purpose="personalized-learning-profile">
+        <!-- Main Profile Analysis Card (Spans 2 columns) -->
+        <div
+          class="lg:col-span-2 bg-white p-6 sm:p-8 rounded-2xl border border-slate-100 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)] flex flex-col justify-between space-y-6">
+          <div>
+            <!-- Header Tag & Confidence Pill -->
+            <div class="flex flex-wrap items-center justify-between gap-3 mb-2">
+              <span class="text-xs sm:text-sm font-bold tracking-wide text-ontime-teal-700 uppercase">
+                Personalized Learning Profile
+              </span>
+              <!-- Confidence Badge in Ontime Style -->
+              <span id="confidence"
+                class="inline-flex items-center space-x-1.5 px-3 py-1 rounded-full text-xs font-extrabold bg-ontime-teal-600 text-white shadow-xs">
+                -
+              </span>
+            </div>
+            <!-- Archetype Name -->
+            <h2 id="learningType" class="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight mb-5">
+              -
+            </h2>
+            <hr class="border-slate-100 mb-6" />
+            <!-- Learning Style Description -->
+            <div class="space-y-3">
+              <h3 class="text-base font-bold text-slate-800 flex items-center space-x-2">
+                <svg class="w-4 h-4 text-ontime-teal-600" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+                  <path d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" stroke-linecap="round"
+                    stroke-linejoin="round" stroke-width="2"></path>
+                </svg>
+                <span>About Your Learning Style</span>
+              </h3>
+              <p id="description" class="text-slate-600 text-sm sm:text-base leading-relaxed">
+                -
+              </p>
+            </div>
+          </div>
+          <!-- Footer Meta & Actions -->
+          <div
+            class="pt-5 border-t border-slate-100 flex flex-col sm:flex-row sm:items-center justify-between gap-4 text-xs text-slate-500">
+            <div class="flex items-center space-x-2">
+              <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+                <path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" stroke-linecap="round" stroke-linejoin="round"
+                  stroke-width="2"></path>
+              </svg>
+              <span>Last analyzed: <strong id="predictedAt" class="text-slate-700 font-semibold">-</strong></span>
+            </div>
+            <button onclick="loadLearningProfile()"
+              class="inline-flex items-center text-xs font-semibold text-ontime-teal-700 hover:text-ontime-teal-800 bg-ontime-teal-50 hover:bg-ontime-teal-100/70 px-3 py-1.5 rounded-lg transition-colors"
+              type="button">
+              <svg class="w-3.5 h-3.5 mr-1" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+                <path
+                  d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
+                  stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+              </svg>
+              Refresh Analysis
+            </button>
+          </div>
+        </div>
+
+        <!-- Recommendations & Next Steps Card (1 column) -->
+        <div
+          class="bg-white p-6 sm:p-7 rounded-2xl border border-slate-100 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)] flex flex-col justify-between space-y-5">
+          <div>
+            <div class="flex items-center justify-between mb-4">
+              <h3 class="text-base font-bold text-slate-900">Recommended Steps</h3>
+              <span class="text-xs bg-ontime-mustard-50 text-ontime-mustard-600 font-bold px-2 py-0.5 rounded">Action
+                Required</span>
+            </div>
+            <p class="text-xs text-slate-500 mb-4">
+              Take these simple actions to upgrade your classification to Active or Advanced Learner.
+            </p>
+            <!-- Recommendation Items -->
+            <ul class="space-y-3">
+              <li class="p-3 rounded-xl bg-ontime-mintbg/60 border border-ontime-teal-100 flex items-start space-x-3">
+                <div
+                  class="w-7 h-7 rounded-lg bg-ontime-teal-600 text-white flex-shrink-0 flex items-center justify-center text-xs font-bold mt-0.5">
+                  1
+                </div>
+                <div class="text-xs">
+                  <span class="font-bold text-slate-800 block">Watch 2 Lessons Today</span>
+                  <span class="text-slate-500">Reach at least 15 minutes of uninterrupted study time.</span>
+                </div>
+              </li>
+              <li class="p-3 rounded-xl bg-ontime-mintbg/60 border border-ontime-teal-100 flex items-start space-x-3">
+                <div
+                  class="w-7 h-7 rounded-lg bg-ontime-mustard-500 text-white flex-shrink-0 flex items-center justify-center text-xs font-bold mt-0.5">
+                  2
+                </div>
+                <div class="text-xs">
+                  <span class="font-bold text-slate-800 block">Attempt Chapter Quiz</span>
+                  <span class="text-slate-500">Boost your score from 1 to 5 to validate your comprehension.</span>
+                </div>
+              </li>
+            </ul>
+          </div>
+          <!-- Banner Prompt -->
+          <div
+            class="bg-gradient-to-br from-ontime-teal-700 to-ontime-teal-900 text-white p-4 rounded-xl shadow-sm relative overflow-hidden">
+            <div class="relative z-10">
+              <h4 class="text-xs font-bold uppercase tracking-wider text-ontime-teal-200">Daily Study Streak</h4>
+              <p class="text-sm font-bold mt-0.5">Day 1 of 7 Challenge</p>
+              <p class="text-xs text-ontime-teal-100/90 mt-1">Consistency builds higher team performance.</p>
+            </div>
+            <!-- Decorative circle -->
+            <div class="absolute -right-4 -bottom-4 w-20 h-20 rounded-full bg-white/10 pointer-events-none"></div>
+          </div>
+        </div>
+      </section>
+      <!-- END: LearningProfileSection -->
+
     </div>
+  </main>
+  <!-- END: MainContent -->
 
-
-    <!-- DASHBOARD CONTENT -->
-
+  <!-- BEGIN: MainFooter -->
+  <footer class="mt-auto border-t border-ontime-teal-100/70 bg-white py-6" data-purpose="site-footer">
     <div
-        id="dashboardContent"
-        class="d-none"
-    >
-
-        <!-- STAT CARDS -->
-
-        <div class="row g-3 mb-4">
-
-            <div class="col-6 col-lg-3">
-
-                <div class="card dashboard-card h-100">
-
-                    <div class="card-body">
-
-                        <p class="metric-label">
-                            Completion Rate
-                        </p>
-
-                        <h3
-                            id="completionRate"
-                            class="metric-value"
-                        >
-                            -
-                        </h3>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-
-            <div class="col-6 col-lg-3">
-
-                <div class="card dashboard-card h-100">
-
-                    <div class="card-body">
-
-                        <p class="metric-label">
-                            Quiz Score
-                        </p>
-
-                        <h3
-                            id="quizScore"
-                            class="metric-value"
-                        >
-                            -
-                        </h3>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-
-            <div class="col-6 col-lg-3">
-
-                <div class="card dashboard-card h-100">
-
-                    <div class="card-body">
-
-                        <p class="metric-label">
-                            Videos Watched
-                        </p>
-
-                        <h3
-                            id="videosWatched"
-                            class="metric-value"
-                        >
-                            -
-                        </h3>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-
-            <div class="col-6 col-lg-3">
-
-                <div class="card dashboard-card h-100">
-
-                    <div class="card-body">
-
-                        <p class="metric-label">
-                            Quizzes Taken
-                        </p>
-
-                        <h3
-                            id="quizzesTaken"
-                            class="metric-value"
-                        >
-                            -
-                        </h3>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-        </div>
-
-
-        <!-- PROGRESS -->
-
-        <div class="card dashboard-card mb-4">
-
-            <div class="card-body p-4">
-
-                <div
-                    class="d-flex justify-content-between mb-2"
-                >
-
-                    <span class="fw-semibold">
-                        Course Progress
-                    </span>
-
-                    <span
-                        id="progressText"
-                        class="text-muted"
-                    >
-                        -
-                    </span>
-
-                </div>
-
-                <div
-                    class="progress"
-                    role="progressbar"
-                >
-
-                    <div
-                        id="progressBar"
-                        class="progress-bar"
-                        style="width: 0%"
-                    ></div>
-
-                </div>
-
-            </div>
-
-        </div>
-
-
-        <!-- LEARNING PROFILE -->
-
-        <div class="card dashboard-card learning-profile-card">
-
-            <div class="card-body p-4 p-md-5">
-
-                <div
-                    class="d-flex flex-column flex-md-row
-                           justify-content-between
-                           align-items-md-start
-                           gap-3"
-                >
-
-                    <div>
-
-                        <p
-                            class="text-primary fw-semibold mb-2"
-                        >
-                            Personalized Learning Profile
-                        </p>
-
-                        <h1
-                            id="learningType"
-                            class="fw-bold mb-0"
-                        >
-                            -
-                        </h1>
-
-                    </div>
-
-
-                    <span
-                        id="confidence"
-                        class="badge text-bg-primary confidence-badge"
-                    >
-                        -
-                    </span>
-
-                </div>
-
-
-                <hr class="my-4">
-
-
-                <h5 class="fw-semibold">
-                    About Your Learning Style
-                </h5>
-
-                <p
-                    id="description"
-                    class="text-muted description-text"
-                >
-                    -
-                </p>
-
-
-                <div class="mt-4">
-
-                    <small class="text-muted">
-                        Last analyzed:
-                        <span id="predictedAt">
-                            -
-                        </span>
-                    </small>
-
-                </div>
-
-            </div>
-
-        </div>
-
+      class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
+      <div class="flex items-center space-x-2">
+        <span class="w-2.5 h-2.5 rounded-full bg-ontime-teal-600"></span>
+        <span class="font-semibold text-slate-700">Ontime Learning Platform</span>
+        <span>· Unlock Your Team Performance</span>
+      </div>
+      <div>
+        <span>© 2026 Ontime. All rights reserved.</span>
+      </div>
     </div>
+  </footer>
+  <!-- END: MainFooter -->
 
-</main>
-
-
-<script
-    src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"
-></script>
-
-<script src="js/config.js"></script>
-<script src="js/supabase-client.js"></script>
-<script src="js/dashboard.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/config.js"></script>
+  <script src="js/supabase-client.js"></script>
+  <script src="js/dashboard.js"></script>
 </body>
 
 </html>
